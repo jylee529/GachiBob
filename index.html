@@ -1,0 +1,36 @@
+<!doctype html>
+<html dir="ltr" lang="ko"
+    chrome-refresh-2023>
+  <head>
+    <meta charset="utf-8">
+    <title>가치밥</title>
+    <style>
+      body {
+        font-family: 'Josefin Slab', serif;
+        font-size: 20px;
+        line-height: 24px;
+        color: #333;
+        background: #76DBD1;
+        overflow-y: scroll;
+      }
+  
+
+    </style>
+  </head>
+  <body>
+    <h1><a href="index.html">홈페이지</a></h1>
+    <ol>
+        <li><a href="1.html">링크1</a></li>
+        <li><a href="2.html">링크2</a></li>
+        <li><a href="3.html">링크3</a></li>
+    </ol>
+
+    <input type="button" value="night" onclick="
+      document.querySelector('body').style.backgroundColor='black';
+      document.querySelector('body').style.color='white';"> 
+    
+    <input type="button" value="day" onclick="
+      document.querySelector('body').style.backgroundColor='white';
+      document.querySelector('body').style.color='black';"> 
+  </body>
+</html>
