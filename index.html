@@ -52,6 +52,14 @@
     <button onclick="location.href='searchPage'">다른 지역 선택</button>
 </div>
 
+<form>
+    <label for="name">이름:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="foodName">제공할 음식:</label><br>
+    <input type="text" id="foodName" name="foodName">
+    <input type="submit" value="Submit" onsubmit="saveInfo()">
+  </form>
+
 <div id="map" style="width:50%;height:400px; "></div>
 
     <footer>
