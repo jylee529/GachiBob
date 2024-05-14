@@ -13,7 +13,7 @@ script.addEventListener("load", function() {
 
 document.body.appendChild(script);
 
-var db = {};
+var db = [];
 
 const map = document.getElementById("map");
 
