@@ -1,7 +1,3 @@
-require("dotenv").config({
-    debug: true
-});
-
 const script = document.createElement('script');
 script.defer = true;
 script.async = true;
