@@ -32,7 +32,8 @@ function saveInfo() {
     
             var result = response.v2, // 검색 결과의 컨테이너
                 items = result.results, // 검색 결과의 배열
-                address = result.address; // 검색 결과로 만든 주소
+                address = result.address.jibunAddress; // 검색 결과로 만든 주소
+            console.log(result);
             db.push({
                 name: personName,
                 foodName: foodName,
