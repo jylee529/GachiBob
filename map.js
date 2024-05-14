@@ -1,4 +1,6 @@
-require("dotenv").config({path:"./.env"});
+require("dotenv").config({
+    debug: true
+});
 
 const script = document.createElement('script');
 script.defer = true;
