@@ -45,6 +45,8 @@ function saveInfo() {
 
         naver.maps.Service.reverseGeocode({
             coords: new naver.maps.LatLng(latitude, longitude),
+            status: naver.maps.Service.Status,
+            response: naver.maps.Service.ReverseGeocodeResponse,
         }, pushResult);
     }
     const errorCallback = (error) => {
