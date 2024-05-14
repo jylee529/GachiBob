@@ -25,9 +25,7 @@ function saveInfo() {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        naver.maps.Service.reverseGeocode({
-            coords: new naver.maps.LatLng(latitude, longitude),
-        }, function(status, response) {
+        const pushResult = function (status, response) {
             if (status !== naver.maps.Service.Status.OK) {
                 return console.log('Something wrong!');
             }
@@ -43,7 +41,11 @@ function saveInfo() {
                 longitude: longitude
             });
             console.log(personName + "님이 " + address + " 에서 " + foodName + "를 제공하고 있습니다");
-        });
+        } 
+
+        naver.maps.Service.reverseGeocode({
+            coords: new naver.maps.LatLng(latitude, longitude),
+        }, pushResult);
     }
     const errorCallback = (error) => {
         console.log("위치 정보를 가져올 수 없습니다");
