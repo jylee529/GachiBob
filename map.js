@@ -18,6 +18,7 @@ var db = {};
 const map = document.getElementById("map");
 
 function saveInfo() {
+    console.log("saveInfo called");
     personName = document.getElementById("name").value;
     foodName = document.getElementById("foodName").value;
     const successCallback = (position) => {
@@ -61,10 +62,19 @@ function search() {
         if (x.foodName == searchString || x.address == searchString) {
             // 맞는 검색결과를 찾앗음
             // 그 위치에 마커 표시
-            var marker = new naver.maps.Marker({
+
+            var markerOptions = {
                 position: new naver.maps.LatLng(x.latitude, x.longitude),
-                map: map
-            });
+                map: map,
+                icon: {
+                    url: 'mapMarker.png',
+                    size: new naver.maps.Size(22, 35),
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(11, 35)
+                }
+            };
+            
+            var marker = new naver.maps.Marker(markerOptions);
             console.log(longitude + " " + latitude);
         }
     }
