@@ -13,7 +13,9 @@ script.addEventListener("load", function() {
 
 document.body.appendChild(script);
 
-var db = [];
+var db = {};
+
+const map = document.getElementById("map");
 
 function saveInfo() {
     personName = document.getElementById("name").value;
@@ -26,7 +28,7 @@ function saveInfo() {
             coords: new naver.maps.LatLng(latitude, longitude),
         }, function(status, response) {
             if (status !== naver.maps.Service.Status.OK) {
-                return alert('Something wrong!');
+                return console.log('Something wrong!');
             }
     
             var result = response.v2, // 검색 결과의 컨테이너
@@ -35,15 +37,35 @@ function saveInfo() {
             db.push({
                 name: personName,
                 foodName: foodName,
-                address: address
+                address: address,
+                latitude: latitude,
+                longitude: longitude
             });
-            alert(personName + "님이 " + address + " 에서 " + foodName + "를 제공하고 있습니다");
+            console.log(personName + "님이 " + address + " 에서 " + foodName + "를 제공하고 있습니다");
         });
     }
     const errorCallback = (error) => {
-        alert("위치 정보를 가져올 수 없습니다");
+        console.log("위치 정보를 가져올 수 없습니다");
     }
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    } 
+    } else {
+        console.log("위치 정보를 가져올 수 없습니다");
+    }
+}
+
+function search() {
+    searchString = document.getElementById("searchingWindow").textContent;
+    console.log(searchString);
+    for (var x of db) {
+        if (x.foodName == searchString || x.address == searchString) {
+            // 맞는 검색결과를 찾앗음
+            // 그 위치에 마커 표시
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(x.latitude, x.longitude),
+                map: map
+            });
+            console.log(longitude + " " + latitude);
+        }
+    }
 }
