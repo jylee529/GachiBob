@@ -52,12 +52,12 @@
     <button onclick="location.href='searchPage'">다른 지역 선택</button>
 </div>
 
-<form>
+<form  onsubmit="saveInfo()">
     <label for="name">이름:</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="foodName">제공할 음식:</label><br>
     <input type="text" id="foodName" name="foodName">
-    <input type="submit" value="Submit" onsubmit="saveInfo()">
+    <input type="submit" value="Submit">
   </form>
 
 <div id="map" style="width:50%;height:400px; "></div>
@@ -65,14 +65,5 @@
     <footer>
         <script src="map.js"></script>
     </footer>
-    <script>
-        var mapOptions = {
-            center: new naver.maps.LatLng(37.3595704, 127.105399),
-            zoom: 10
-        };
-        
-        var map = new naver.maps.Map('map', mapOptions);
-    
-        </script>
 </body>
 </html>
