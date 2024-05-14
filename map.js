@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const script = document.createElement('script');
 script.defer = true;
 script.async = true;
