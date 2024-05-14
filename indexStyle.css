@@ -1,0 +1,161 @@
+.top-bar {
+  background-color: white;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.left {
+  flex: 1;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 100px;
+}
+
+.middle {
+  flex: 2;
+  text-align: center;
+  align-self: center;
+}
+
+.search-container {
+  display: flex;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+}
+
+.search-box {
+  padding-right: 20px; 
+  padding-left: 20px; 
+  border-radius: 25px; 
+  flex: 1;
+}
+
+.search-icon {
+  display: flex;
+  width: 40px; 
+  height: 40px; 
+  background-color: #c4c4c4; 
+  background-image: url('magnifier-icon.png'); 
+  background-size: 60%; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+  input[type="text"] {
+      width: 80%;
+      border: none;
+      background-color: #f0f0f0;
+      box-sizing: border-box;
+      font-size: 16px;
+  }
+
+  input[type="text"]:focus {
+      outline: none;
+  }
+
+button {
+  background-color: transparent;
+  color: #76DBD1;
+  border: none;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+  #home{
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-left: 100px;
+  }
+
+  .left button{
+      font-size: 30px;
+  }
+
+
+  .right button {
+      font-size: 16px; 
+  }
+
+  #login {
+      color: black;
+      margin-right: 10px;
+      padding: 10px 15px;
+  }
+
+  #login:hover{
+      background-color: rgb(202, 202, 202);
+  }
+
+  #register {
+      background-color: #76DBD1;
+      padding: 10px 15px;
+      color: white;
+  }
+
+  #register:hover{
+      background-color: #61b8af;
+  }
+
+.bottom-bar{
+  background-color: #e0e0e0;
+  color: black;
+  padding-left: 100px;
+}
+  #introduce, #notification, #guide {
+      color: black;
+      font-weight: 500;
+      padding: 10px 50px; 
+      border-radius: 0%;
+      margin-right: -5px;
+  }
+  #introduce:hover, #notification:hover, #guide:hover {
+      background-color: rgb(194, 191, 191);
+  }
+
+
+.top-section{
+  text-align: center; /* Center align the content */
+  padding: 20px; /* Add padding for spacing */
+  background-color: #76DBD1;
+}
+  .top-section h1{
+      font-size: 45px; /* Adjust font size */
+      margin-bottom: 20px; /* Add margin below the text */
+      color: #4b3ba5;
+  }
+  .top-section h2{
+      font-size: 30px;
+      margin-bottom: 30px;
+  }
+  .top-section button {
+      padding: 15px 25px; /* Adjust button padding */
+      font-size: 20px; /* Adjust button font size */
+      font-weight: 700;
+      background-color: #555151; /* Button background color */
+      color: white; /* Button text color */
+      border: none; /* Remove button border */
+      border-radius: 15px; /* Button border radius */
+      cursor: pointer; /* Add pointer cursor on hover */
+      transition: background-color 0.3s ease; /* Add transition effect */
+      margin-bottom: 40px;
+  }
+  .top-section button:hover{
+      background-color: #837b7b;
+  }

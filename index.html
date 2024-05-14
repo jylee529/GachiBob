@@ -1,36 +1,41 @@
-<!doctype html>
-<html dir="ltr" lang="ko"
-    chrome-refresh-2023>
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>가치밥</title>
-    <style>
-      body {
-        font-family: 'Josefin Slab', serif;
-        font-size: 20px;
-        line-height: 24px;
-        color: #333;
-        background: #76DBD1;
-        overflow-y: scroll;
-      }
-  
+    <link rel="stylesheet" href="indexStyle.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
 
-    </style>
-  </head>
-  <body>
-    <h1><a href="index.html">홈페이지</a></h1>
-    <ol>
-        <li><a href="1.html">링크1</a></li>
-        <li><a href="2.html">링크2</a></li>
-        <li><a href="3.html">링크3</a></li>
-    </ol>
+<body>
 
-    <input type="button" value="night" onclick="
-      document.querySelector('body').style.backgroundColor='black';
-      document.querySelector('body').style.color='white';"> 
-    
-    <input type="button" value="day" onclick="
-      document.querySelector('body').style.backgroundColor='white';
-      document.querySelector('body').style.color='black';"> 
-  </body>
+<div class="top-bar">
+    <div class="left">
+        <button id="home" onclick="location.href='index.html'">가치밥</button>
+    </div>
+    <div class="middle">
+        <div class="search-container">
+            <input id="searchingWindow" type="text" placeholder="지역 또는 음식을 검색해보세요!" class="search-box">
+            <span class="search-icon"></span> 
+        </div>
+    </div>
+    <div class="right">
+        <button id="login" onclick="location.href='login.html'">로그인</button>
+        <button id="register" onclick="location.href='register.html'">회원가입</button>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <button id="introduce" onclick="location.href='introduce.html'">소개</button>
+    <button id="notification" onclick="location.href='notification.html'">공지사항</button>
+    <button id="guide" onclick="location.href='guide.html'">이용 안내</button>
+</div>
+
+<div class="top-section">
+    <h1>성북구 정릉동</h1>
+    <h2>추천 식사 모임이에요!</h2>
+    <button onclick="location.href='searchPage'">다른 지역 선택</button>
+</div>
+</body>
 </html>
