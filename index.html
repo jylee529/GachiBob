@@ -7,7 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  </head>
+    <style>
+        #map {
+            width: 50%; /* Set width to 50% of the viewport width */
+            height: 50vh; /* Set height to 50% of the viewport height */
+            margin: auto; /* Center the map horizontally */
+            margin-top: 100px; /* Add space from the top */
+            margin-bottom: 1000px;
+            border: 2px solid #000; /* Add border */
+            border-radius: 20px; /* Add border radius */
+            overflow: hidden; /* Hide overflow */
+        }
+    </style>
+
+</head>
 
 <body>
 
@@ -39,12 +52,19 @@
     <button onclick="location.href='searchPage'">다른 지역 선택</button>
 </div>
 
-<div id="map" style="width:100%;height:400px; "></div>
+<div id="map" style="width:50%;height:400px; "></div>
 
     <footer>
         <script src="map.js"></script>
     </footer>
+    <script>
+        var mapOptions = {
+            center: new naver.maps.LatLng(37.3595704, 127.105399),
+            zoom: 10
+        };
+        
+        var map = new naver.maps.Map('map', mapOptions);
+    
+        </script>
 </body>
 </html>
-
-<!-- update complete 3-->
