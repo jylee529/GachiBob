@@ -1,4 +1,6 @@
-require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const script = document.createElement('script');
 script.defer = true;
