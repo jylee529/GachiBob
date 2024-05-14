@@ -4,7 +4,7 @@ const script = document.createElement('script');
 script.defer = true;
 script.async = true;
 script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.CLIENT_ID}&callback=initMap`;
-document.appendChild(script);
+document.body.appendChild(script);
 
 function initMap() {
     var mapOptions = {
