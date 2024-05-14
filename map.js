@@ -1,7 +1,7 @@
 const script = document.createElement('script');
 script.defer = true;
 script.async = true;
-script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.CLIENT_ID}`;
+script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cyhpu0hqee`;
 script.addEventListener("load", function() {
     var mapOptions = {
         center: new naver.maps.LatLng(37.3595704, 127.105399),
