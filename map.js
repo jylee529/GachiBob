@@ -18,7 +18,7 @@ document.body.appendChild(script);
 
 const map = document.getElementById("map");
 
-function saveInfo() {
+function saveInfo() {                               // 입력한 정보(이름, 음식 이름) 저장
     console.log("saveInfo called");
     personName = document.getElementById("name").value;
     foodName = document.getElementById("foodName").value;
@@ -33,11 +33,15 @@ function saveInfo() {
     
             var result = response.v2, // 검색 결과의 컨테이너
                 items = result.results, // 검색 결과의 배열
-                address = result.address.jibunAddress; // 검색 결과로 만든 주소
+                address = result.address.roadAddress; // 검색 결과로 만든 도로명주소
             console.log(result);
 
             //writeUserData(name, foodName, address, latitude, longitude);
             console.log(personName + "님이 " + address + " 에서 " + foodName + "를 제공하고 있습니다");
+
+            // 결과를 화면에 표시
+            const addressDisplay = document.getElementById("addressDisplay");
+            addressDisplay.textContent = personName + "님이 " + address + " 에서 " + foodName + "를 제공하고 있습니다";
         } 
 
         naver.maps.Service.reverseGeocode({
