@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <style>
-        /* 상단 바*/
+        
         #userNickname {
             color:#000000;
             font-size: 20px;
@@ -31,81 +31,10 @@
             cursor: pointer; 
             margin-left: 10px; 
         }
+
         #logoutButton:hover {
             background-color: #E74C3C; 
         }
-
-        /*section*/
-        .section-1{
-            background-color: #ffffff;
-            margin-top: 100px;
-            margin-left: 200px;
-            margin-bottom: 100px;
-        }
-            .section-1 h1{
-                font-size: 40px;
-                font-weight: 800px;
-                color: #57A99A
-            }
-            .section-1 h2{
-                font-size: 30px;
-                color:#555151
-            }
-            .section-1 h3{
-                font-size: 20px;
-                color:#555151
-            }
-            .section-1 button{
-                background-color: #555151;
-                color: #ffffff;
-                border: none;
-                cursor: pointer;
-                padding: 16px 24px;
-                border-radius: 20px;
-                transition: all 0.2s;
-                font-family: 'Noto Sans KR', sans-serif;
-                font-size: 30px;
-                font-weight: 600;
-                margin-left: 60%;
-            }
-        .section-2{
-            background-color: #76DBD1;
-            margin-top: 100px;
-            margin-bottom: 100px;
-            text-align: right;
-            padding-top: 100px;
-            padding-bottom: 400px;
-        }
-            .section-2 h1{
-                margin-right: 200px;
-                font-size: 40px;
-                font-weight: 800px;
-                color: #555151
-            }
-            .section-2 h2{
-                margin-right: 200px;
-                font-size: 30px;
-                color:rgb(232, 248, 248)
-            }
-            .section-2 h3{
-                margin-right: 200px;
-                font-size: 20px;
-                color:rgb(232, 248, 248)
-            }
-            .section-2 button{
-                margin-right: 200px;
-                background-color: #287a6b;
-                color: #ffffff;
-                border: none;
-                cursor: pointer;
-                padding: 16px 24px;
-                border-radius: 20px;
-                transition: all 0.2s;
-                font-family: 'Noto Sans KR', sans-serif;
-                font-size: 30px;
-                font-weight: 600;
-                margin-right: 60%;
-            }
         
     </style>
     <script src="bottomBar.js"></script>
@@ -171,6 +100,8 @@
         });
         });
     </script>
+
+
 </head>
 
 <body>
@@ -202,25 +133,7 @@
     <button id="mealSearch" onclick="location.href='mealSearch.html'">식사 모임 검색</button>
 </div>
 
-<div class="section-1">
-    <h1>요리는 하고 싶은데, 먹을 입이 부족해요.</h1>
-    <h2>그렇다면 동네 사람들한테 파는 건 어때요?</h2>
-    <h3>
-        한번에 많이 사서 많이 만들수록 싸지만, 먹기도, 보관하기도 어려웠죠? <br>
-        이제 고민하지 말고 요리하세요!
-    </h3>
-    <button id="mealRegisterInSection-1" onclick="location.href='mealRegister.html'">식사 모임 등록</button>
-</div>
 
-<div class="section-2">
-    <h1>맛있는 건 먹고 싶은데, 요리를 못 해요.</h1>
-    <h2>옆 집에서 얻어먹는 건 어때요?</h2>
-    <h3>
-        외식은 너무 비싸고, 요리하자니 너무 난관이 많고, 조금만 만들자니 단가가 너무 비쌌죠?<br>
-        이제 동네에서 집밥을 골라서 먹어보세요!
-    </h3>
-    <button id="mealSearchInSection-1" onclick="location.href='mealSearch.html'">식사 모임 검색</button>
-</div>
 
 </body>
 </html>

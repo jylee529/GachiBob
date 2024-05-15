@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>가치밥</title>
+    <link rel="stylesheet" href="indexStyle.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            background-color: #a8ddd8; /* 배경색 설정 */
+            font-family: 'Noto Sans KR', sans-serif; /* 글꼴 변경 */
+        }
+
+        .container {
+            margin: 50px auto; /* 왼쪽에 여유 공간 설정 */
+            width: 80%; /* 컨테이너 너비 설정 */
+            max-width: 400px; /* 최대 너비 설정 */
+            background-color: #ffffff; /* 배경색 설정 */
+            padding: 20px; /* 안쪽 여백 설정 */
+            border-radius: 10px; /* 테두리 반경 설정 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+        }
+
+        .container h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* 입력 칸 사이 간격 설정 */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 22px); /* 입력 칸 너비 설정 */
+            padding: 10px; /* 내부 여백 설정 */
+            border: 1px solid #ccc; /* 테두리 설정 */
+            border-radius: 5px; /* 테두리 반경 설정 */
+            margin-right: 10px; /* 오른쪽 여백 설정 */
+        }
+        .feedback-valid {
+            color: green;
+        }
+
+        .feedback-invalid {
+            color: red;
+        }
+
+        button[type="signupButton"] {
+            width: 100%; /* 버튼 너비 설정 */
+            padding: 10px; /* 내부 여백 설정 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 테두리 반경 설정 */
+            background-color: #76DBD1; /* 배경색 설정 */
+            color: #fff; /* 글자색 설정 */
+            font-size: 16px; /* 글자 크기 설정 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+
+        button[type="signupButton"]:hover {
+            background-color: #5cb8af; /* 호버 시 배경색 변경 */
+        }
+    </style>
+    <script src="bottomBar.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div class="left">
+        
+    </div>
+    <div class="middle">
+        <div class="search-container">
+            <!-- <input id="searchingWindow" type="text" placeholder="지역 또는 음식을 검색해보세요!" class="search-box">
+            <span id="searchIcon" onclick="search()" class="search-icon"></span>  -->
+            <button id="home" onclick="location.href='index.html'">가치밥</button>
+        </div>
+    </div>
+    <div class="right">
+        <button id="login" onclick="location.href='login.html'">로그인</button>
+        <button id="register" onclick="location.href='register.html'">회원가입</button>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <button id="introduce" onclick="location.href='index.html'">소개</button>
+    <button id="notification" onclick="location.href='notification.html'">공지사항</button>
+    <button id="guide" onclick="location.href='guide.html'">이용 안내</button>
+    <button id="mealRegister" onclick="location.href='mealRegister.html'">식사 모임 등록</button>
+    <button id="mealSearch" onclick="location.href='mealSearch.html'">식사 모임 검색</button>
+</div>
+
+<div class="container">
+    <h2>회원가입</h2>
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="userId">이메일</label><br>
+            <input type="email" id="signUpEmail" name="email" required>
+            <div id="emailFeedback"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label><br>
+            <input type="password" id="signUpPassword" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">비밀번호 확인</label><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <!-- <div class="form-group">
+            <label for="nickname">닉네임</label><br>
+            <input type="text" id="nickname" name="nickname" required>
+        </div> -->
+        <div class="form-group">
+            <button type="signupButton" id="signUpButton">가입하기</button>
+        </div>
+    </form>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCIdylWlCG8SiNzNy156t4tJrvxEJzB7wU",
+          authDomain: "gachibob-1891a.firebaseapp.com",
+          projectId: "gachibob-1891a",
+          storageBucket: "gachibob-1891a.appspot.com",
+          messagingSenderId: "291982428045",
+          appId: "1:291982428045:web:23432a7842bd76fa39dfc4",
+          measurementId: "G-76KZQE91XR"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+
+        // 회원가입 버튼을 눌렀을 때
+        document.getElementById('signUpButton').addEventListener('click', async(event) => {
+            event.preventDefault()
+            const email = document.getElementById('signUpEmail').value
+            const password = document.getElementById('signUpPassword').value
+            const confirmPassword = document.getElementById('confirmPassword').value
+            // const nickname = document.getElementById('nickname').value;
+
+            const auth = getAuth();
+            // 이메일 중복 확인
+            try {
+                const methods = await fetchSignInMethodsForEmail(auth, email);
+                console.log(methods.length);
+                if (methods.length > 0) {
+                    alert('이미 가입한 이메일입니다.');
+                    return;
+                }
+            } catch (error) {
+                console.error('Error fetching sign-in methods:', error);
+                return;
+            }
+
+            // 비밀번호와 비밀번호 확인의 일치 확인
+            if (password !== confirmPassword) {
+                alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                return;
+            }
+
+            // 회원 가입 처리
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log('회원가입 성공', userCredential)
+                // Signed in 
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                console.log('회원가입 실패', error)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorMessage == 'Firebase: Error (auth/email-already-in-use).'){
+                    alert('이미 사용중인 이메일입니다.')
+                    emailFeedback.textContent = '이미 사용중인 이메일입니다.';
+                    emailFeedback.classList.remove('feedback-valid');
+                    emailFeedback.classList.add('feedback-invalid');
+                } 
+                // ..
+            });
+        });
+
+    </script>
+</body>
+</html>
