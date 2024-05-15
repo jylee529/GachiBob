@@ -12,8 +12,8 @@
             width: 50%; /* Set width to 50% of the viewport width */
             height: 50vh; /* Set height to 50% of the viewport height */
             margin: auto; /* Center the map horizontally */
-            margin-top: 100px; /* Add space from the top */
-            margin-bottom: 1000px;
+            margin-top: 30px; /* Add space from the top */
+            margin-bottom: 30px;
             border: 2px solid #000; /* Add border */
             border-radius: 20px; /* Add border radius */
             overflow: hidden; /* Hide overflow */
@@ -52,13 +52,13 @@
     <button onclick="location.href='searchPage'">다른 지역 선택</button>
 </div>
 
-<form  onsubmit="saveInfo()">
-    <label for="name">이름:</label><br> 
+<form class="submit" onsubmit="saveInfo()">
+    <label for="name">이름</label>
     <input type="text" id="name" name="name"><br>
-    <label for="foodName">제공할 음식:</label><br>
-    <input type="text" id="foodName" name="foodName">
-    <button type="submit" value="Submit">Submit</button>
-  </form>
+    <label for="foodName">제공할 음식</label>
+    <input type="text" id="foodName" name="foodName"><br>
+    <button type="submit" value="Submit">검색</button>
+</form>
 
 <div id="map" style="width:50%;height:400px; "></div>
 
@@ -99,7 +99,13 @@
 
         <script src="map.js"></script>
     </footer>
-    <div>주소 :</div>
-    <div id="addressDisplay"></div> 
+    <div class="bottom-section">
+        <div class="address-container">
+            <div>주소 :</div>
+            <div id="addressBox">
+                <div id="addressDisplay"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

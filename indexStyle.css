@@ -159,3 +159,58 @@ button {
   .top-section button:hover{
       background-color: #837b7b;
   }
+
+.submit {
+  text-align: right;
+  padding: 20px; /* Add padding for spacing */
+  background-color: #ffffff;
+  padding-bottom: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding-right: 40%;
+  color: #000000;
+}
+
+.submit input{
+  margin-right: 0%;
+  width: 200px;
+}
+
+.submit button{
+  margin-left: 50%;
+}
+
+.bottom-section {
+  text-align: left;
+  padding: 20px; /* Add padding for spacing */
+  background-color: #839bd7;
+  padding-bottom: 500px;
+  padding-left: 30%;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.address-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#addressBox {
+  border: 1px solid #ccc; /* Box border */
+  background-color: #ffffff; /* Box background color */
+  padding: 0px; /* Box padding */
+  margin-left: 10px; /* Space between "주소 :" and the box */
+  width: 500px; /* Fixed width */
+  height: 20px; /* Fixed height */
+  overflow: hidden; /* Ensure content doesn't overflow */
+  border-radius: 5px;
+}
+
+#addressDisplay {
+  font-weight: normal; /* Reset the font weight for address text */
+  font-size: 16px; /* Set a smaller font size for address text */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+}
