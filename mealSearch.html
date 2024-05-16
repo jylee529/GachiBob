@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <style>
-        
+        /* 상단 바*/
         #userNickname {
             color:#000000;
             font-size: 20px;
@@ -31,9 +31,137 @@
             cursor: pointer; 
             margin-left: 10px; 
         }
-
         #logoutButton:hover {
             background-color: #E74C3C; 
+        }
+
+        /*section*/
+        .section-1{
+            background-color: #ffffff;
+            margin-top: 100px;
+            margin-left: 200px;
+            margin-bottom: 100px;
+        }
+            .section-1 h1{
+                font-size: 40px;
+                font-weight: 800px;
+                color: #57A99A
+            }
+            .section-1 h2{
+                font-size: 30px;
+                color:#555151
+            }
+            .section-1 h3{
+                font-size: 20px;
+                color:#555151
+            }
+            .section-1 button{
+                background-color: #555151;
+                color: #ffffff;
+                border: none;
+                cursor: pointer;
+                padding: 16px 24px;
+                border-radius: 20px;
+                transition: all 0.2s;
+                font-family: 'Noto Sans KR', sans-serif;
+                font-size: 30px;
+                font-weight: 600;
+                margin-left: 65%;
+            }
+        .section-2{
+            background-color: #76DBD1;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            text-align: right;
+            padding-top: 100px;
+            padding-bottom: 400px;
+        }
+            .section-2 h1{
+                margin-right: 200px;
+                font-size: 40px;
+                font-weight: 800px;
+                color: #555151
+            }
+            .section-2 h2{
+                margin-right: 200px;
+                font-size: 30px;
+                color:rgb(232, 248, 248)
+            }
+            .section-2 h3{
+                margin-right: 200px;
+                font-size: 20px;
+                color:rgb(232, 248, 248)
+            }
+            .section-2 button{
+                margin-right: 200px;
+                background-color: #287a6b;
+                color: #ffffff;
+                border: none;
+                cursor: pointer;
+                padding: 16px 24px;
+                border-radius: 20px;
+                transition: all 0.2s;
+                font-family: 'Noto Sans KR', sans-serif;
+                font-size: 30px;
+                font-weight: 600;
+                margin-right: 70%;
+            }
+        
+        
+        #searchSection{
+            /* text-align: center; */
+            height: 100%;
+            display: flex;
+            /* margin-bottom: 20px; */
+            background-color: #cbfffa;
+            /* margin-top: 0; */
+            justify-content: center;
+            padding-bottom: 100px;
+        }
+        /* 왼쪽 폼 스타일 */
+        #addressForm {
+            width: 40%;
+            float: left;
+            padding: 20px;
+        }
+        #addressForm h2{
+            padding-top: 10%;
+        }
+        #addressInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20px;
+        }
+        #rangeSelectString {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20px;
+            padding-left: 10px;
+        }
+        #rangeSelect {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20px;
+        }
+        #searchBtnContainer {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+        #submitBtn{
+            margin-left: 85%;
+            background-color: #4a4a4a;
+            color: white;
+            margin-top: 20px;
         }
 
 
@@ -48,11 +176,49 @@
             border-radius: 20px; /* Add border radius */
             overflow: hidden; /* Hide overflow */
         }
+
+        #placesList {
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .place-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center; /* Center the items horizontally */
+            align-items: center; /* Center the items vertically */
+            text-align: center; /* Center text inside the items */
+        }
+
+        .place-item:last-child {
+            border-bottom: none;
+        }
+
+        .place-details {
+            flex: 1;
+            display: flex;
+            justify-content: space-around; /* Space the details evenly */
+            text-align: center; /* Center text in each detail */
+        }
+
+        .place-details span {
+            flex: 1;
+        }
+
+
         
     </style>
+
+
     <script src="bottomBar.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -113,39 +279,130 @@
         });
         });
     </script>
+    
+    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66e528f1f422ee279fcc572ad70ec1fa"></script> -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66e528f1f422ee279fcc572ad70ec1fa&libraries=services"></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module">
+        import {db, getDocs, collection } from "./firebase.js";
 
-    <script>
-        // 서울의 구 목록
-        const seoulDistricts = ["종로구", "중구", "용산구", "성동구", "광진구", "동대문구", "중랑구", 
-        "성북구", "강북구", "도봉구", "노원구", "은평구", "서대문구", "마포구", "양천구", "강서구", 
-        "구로구", "금천구", "영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구"];
+        // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
 
-        // 서울의 구 드롭다운을 생성하는 함수
-        function createSeoulDistrictsDropdown() {
-            const seoulDistrictsDropdown = document.getElementById("district");
+        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-            // 기존의 옵션 제거
-            seoulDistrictsDropdown.innerHTML = "<option value=''>구 선택</option>";
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };  
 
-            // 서울의 구 옵션 추가
-            seoulDistricts.forEach(district => {
-                const option = document.createElement("option");
-                option.text = district;
-                option.value = district;
-                seoulDistrictsDropdown.appendChild(option);
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places(); 
+
+
+
+
+
+        // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+        async function placesSearchCB (data, status, pagination) {
+            console.log("status:" + status);
+            if (status === kakao.maps.services.Status.OK) {
+
+                const lat1 = data[0].y;
+                const long1 = data[0].x;
+                map.setCenter(new kakao.maps.LatLng(lat1, long1));
+
+                // 드롭다운에서 선택한 탐색 범위 값 가져오기
+                const range = document.getElementById("rangeSelect").value;
+
+                // 데이터베이스에서 모든 아이템 가져오기
+                const querySnapshot = await getDocs(collection(db, "gachiBob"));
+                // 결과 초기화
+                const placesList = document.getElementById("placesList");
+                placesList.innerHTML = "";
+
+                querySnapshot.forEach((doc) => {
+
+                    const lat2 = doc.data()['latitude'];
+                    const long2 = doc.data()['longitude'];
+                    var dist = distance(long1, lat1, long2, lat2);
+                    console.log("dist: " + dist);
+
+                    // dist(km)의 범위 제한
+                    if (dist < range) { 
+                        displayMarker(long2, lat2, doc.data()['foodName']);
+                        console.log(doc.data());
+
+                        // 결과 리스트에 추가
+                        const placeItem = document.createElement("div");
+                        placeItem.className = "place-item";
+
+                        // 작성 형식
+                        const placeDetails = `
+                            <div class="place-details">
+                                <span>이메일 : ${doc.data()['userEmail']}</span>
+                                <span>장소 : ${doc.data()['address']}</span>
+                                <span>날짜 :${doc.data()['date']}</span>
+                                <span>시간 :${doc.data()['time']}</span>
+                                <span>메뉴 :${doc.data()['foodName']}</span>
+                                <span>모집 인원 :${doc.data()['numOfPeople']} 명</span>
+                            </div>
+                        `;
+                        placeItem.innerHTML = placeDetails;
+                        placesList.appendChild(placeItem);
+                    }
+                    
+                });
+
+
+            } 
+        }
+
+        // 지도에 마커를 표시하는 함수입니다
+        function displayMarker(x, y, name) {
+            
+            // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: new kakao.maps.LatLng(y, x)
             });
+
+            // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + name + '</div>');
+                infowindow.open(map, marker);
+            });
+
+            marker.setMap(map);
         }
 
-        // 서울의 구 드롭다운이 변경되었을 때 호출되는 함수
-        function updateSubDistricts() {
-            // 서울의 구 드롭다운이 변경되었을 때 할 일
+        function searchAddressAndShowMap() {
+            const addressInput = document.getElementById("addressInput").value;
+            // 키워드로 장소를 검색합니다
+            console.log(addressInput + " searched");
+            ps.keywordSearch(addressInput, placesSearchCB); 
         }
 
-        // 페이지 로드 시 서울의 구 드롭다운 생성
-        window.onload = function() {
-            createSeoulDistrictsDropdown();
-        };
+        document.getElementById('submitBtn').addEventListener('click', async (event) => {
+            searchAddressAndShowMap();
+        });
 
+        function distance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = 
+                0.5 - Math.cos(dLat)/2 + 
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                (1 - Math.cos(dLon))/2;
+
+            return R * 2 * Math.asin(Math.sqrt(a));
+        }
     </script>
 
 
@@ -181,108 +438,31 @@
 </div>
 
 
-
-
-
-<div class="top-section">
-    <div class="left-box">
-        <div class="left-section">
-            <h2>등록</h2>
-            <form class="submit" onsubmit="saveInfo(); return false;">
-                <div class="form-group">
-                    <label for="district">주소</label><br>
-                    <select id="district" onchange="updateSubDistricts()">
-                        <option value="">구 선택</option>
-                        <!-- 서울의 구 옵션은 JavaScript로 생성 -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="detailedAddress">상세 주소</label><br>
-                    <input type="text" id="detailedAddress" name="detailedAddress">
-                </div>
-                <div class="form-group">
-                    <label for="foodName">제공할 음식</label><br>
-                    <input type="text" id="foodName" name="foodName">
-                </div>
-                <div class="form-group">
-                    <label for="participants">모집 인원</label><br>
-                    <input type="number" id="participants" name="participants">
-                </div>
-                <div class="form-group">
-                    <button type="submit">검색</button>
-                </div>
-            </form>
+<div id = searchSection>
+    <div id="addressForm">
+        <h2>주소 검색</h2>
+        <input type="text" id="addressInput" placeholder="주소를 입력하세요">
+        <label for="rangeSelect" id="rangeSelectString">탐색 범위</label>
+        <select id="rangeSelect">
+            <option value="1">1km</option>
+            <option value="5">5km</option>
+            <option value="10" selected>10km</option>
+        </select>
+        <div id="searchBtnContainer">
+            <span id="searchGuide">입력한 주소를 중심으로 선택한 반경 내에 있는 정보를 불러옵니다.</span>
+            <button id="submitBtn">검색</button>
         </div>
     </div>
-    <div class="right-box">
-        <div class="right-section">
-            <h2>검색</h2>
-            <form class="submit" onsubmit="saveInfo(); return false;">
-                <div class="form-group">
-                    <label for="district">주소</label><br>
-                    <select id="district" onchange="updateSubDistricts()">
-                        <option value="">구 선택</option>
-                        <!-- 서울의 구 옵션은 JavaScript로 생성 -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit">검색</button>
-                </div>
-            </form>
-        </div>
+    
+    <div id="mapContainer">
+        <div id="map" style="width:500px;height:400px;"></div>
     </div>
 </div>
 
+<div id = "searchOutput">
+    <div id="placesList"></div>
+</div>
 
 
-
-
-<div id="map" style="width:50%;height:400px; "></div>
-
-    <footer>
-        <!-- <script type="module">
-            import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
-        
-            // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
-            import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js'
-        
-            // Add Firebase products that you want to use
-            import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
-            import { getDatabase, ref, set, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-
-
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-                apiKey: "AIzaSyBoWZq8Yq0xgDMB4Q0Ul81jNuIKj2tQl4w",
-                authDomain: "gachibob-7f7d5.firebaseapp.com",
-                projectId: "gachibob-7f7d5",
-                storageBucket: "gachibob-7f7d5.appspot.com",
-                messagingSenderId: "968981188327",
-                appId: "1:968981188327:web:8132b26c173ad0546c1c42",
-                measurementId: "G-L9VXKHKM3J",
-                databaseURL: "https://gachibob-7f7d5-default-rtdb.firebaseio.com/",
-            };
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-
-            
-            // Initialize Realtime Database and get a reference to the service
-            const database = getDatabase(app);
-          </script> -->
-
-        <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=cyhpu0hqee&submodules=geocoder"></script>
-
-        <script src="map.js"></script>
-    </footer>
-    <div class="bottom-section">
-        <div class="address-container">
-            <div>주소 :</div>
-            <div id="addressBox">
-                <div id="addressDisplay"></div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

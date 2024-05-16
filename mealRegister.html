@@ -100,53 +100,34 @@
         <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66e528f1f422ee279fcc572ad70ec1fa&libraries=services"></script>
+
 
         <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-            import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-            import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+            import {db, auth, onAuthStateChanged, addDoc, getDocs, collection } from "./firebase.js";
             
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-            apiKey: "AIzaSyCIdylWlCG8SiNzNy156t4tJrvxEJzB7wU",
-            authDomain: "gachibob-1891a.firebaseapp.com",
-            projectId: "gachibob-1891a",
-            storageBucket: "gachibob-1891a.appspot.com",
-            messagingSenderId: "291982428045",
-            appId: "1:291982428045:web:23432a7842bd76fa39dfc4",
-            measurementId: "G-76KZQE91XR"
-            };
-            
-            // Firebase 앱 초기화.
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-            const auth = getAuth();     // 사용자 정보를 가져오기 위한 변수
-            const db = getFirestore(app);
-            
-            // 로그인 여부를 확인하고, 사용자의 정보를 가져오는 함수
-            function checkAuthState() {
-                auth.onAuthStateChanged(function(user) {
-                    if (user) {
-                        // 사용자가 로그인되어 있는 경우
-                        document.getElementById('login').style.display = 'none'; // 로그인 버튼 숨기기
-                        document.getElementById('register').style.display = 'none'; // 회원가입 버튼 숨기기
-                        const userEmail = user.address;
-                        const userNickname = userEmail.substring(0, userEmail.indexOf('@'));
-                        console.log(userNickname);
-                        document.getElementById('userNickname').textContent = userNickname + ' 님'; // 사용자의 아이디 표시
-                        document.getElementById('logoutButton').style.display = 'inline-block'; // 로그아웃 버튼 보이기
-                    } else {
-                        // 사용자가 로그인되어 있지 않은 경우
-                        document.getElementById('login').style.display = 'block'; // 로그인 버튼 표시
-                        document.getElementById('register').style.display = 'block'; // 회원가입 버튼 표시
-                        document.getElementById('userNickname').textContent = ''; // 사용자 닉네임 초기화
-                        document.getElementById('userNicknameBox').style.display = 'none';  // 사용자 닉네임 박스 숨김
-                        document.getElementById('logoutButton').style.display = 'none'; // 로그아웃 버튼 숨기기
-                    }
-                });
-            }
+         // 로그인 여부를 확인하고, 사용자의 정보를 가져오는 함수
+         function checkAuthState() {
+            auth.onAuthStateChanged(function(user) {
+                if (user) {
+                    // 사용자가 로그인되어 있는 경우
+                    document.getElementById('login').style.display = 'none'; // 로그인 버튼 숨기기
+                    document.getElementById('register').style.display = 'none'; // 회원가입 버튼 숨기기
+                    const userEmail = user.email;
+                    const userNickname = userEmail.substring(0, userEmail.indexOf('@'));
+                    console.log(userNickname);
+                    document.getElementById('userNickname').textContent = userNickname + ' 님'; // 사용자의 아이디 표시
+                    document.getElementById('logoutButton').style.display = 'inline-block'; // 로그아웃 버튼 보이기
+                } else {
+                    // 사용자가 로그인되어 있지 않은 경우
+                    document.getElementById('login').style.display = 'block'; // 로그인 버튼 표시
+                    document.getElementById('register').style.display = 'block'; // 회원가입 버튼 표시
+                    document.getElementById('userNickname').textContent = ''; // 사용자 닉네임 초기화
+                    document.getElementById('userNicknameBox').style.display = 'none';  // 사용자 닉네임 박스 숨김
+                    document.getElementById('logoutButton').style.display = 'none'; // 로그아웃 버튼 숨기기
+                }
+            });
+        }
 
             // 로딩시 로그인 여부 확인.
             window.onload = function() {
@@ -164,7 +145,16 @@
             });
             });
             // 여기까지 로그인 확인
-
+            
+            var currentUser;
+            onAuthStateChanged(auth, (user) => {
+                console.log("user : " + user);
+                if (user) {
+                    currentUser = user;
+                } else {
+                    currentUser = null;
+                }
+            })
             
             // Firestore에 데이터 등록
             document.getElementById('registerForm').addEventListener('submit', async (event) => {
@@ -174,23 +164,44 @@
                 const time = document.getElementById('time').value;
                 const foodName = document.getElementById('foodName').value;
                 const numOfPeople = document.getElementById('numOfPeople').value;
+                var latitude = 0;
+                var longitude = 0;
+                var user = auth.currentUser;
+                console.log(user);
+                var userEmail = user ? user.email : null;
+                
+                var geocoder = new kakao.maps.services.Geocoder();
+                geocoder.addressSearch(address, async function(result, status) {
 
-                try {
-                    const docRef = await addDoc(collection(db, 'gachiBob'), {
-                        address: address,
-                        date: date,
-                        time: time,
-                        foodName: foodName,
-                        numOfPeople: numOfPeople,
-                        createdAt: new Date()
-                    });
-                    alert('모임이 성공적으로 등록되었습니다!');
-                    document.getElementById('registerForm').reset();
-                    location.href = 'index.html';
-                } catch (error) {
-                    console.error('Error adding document: ', error);
-                    alert('모임 등록에 실패했습니다. 다시 시도해주세요.');
-                }
+                    // 정상적으로 검색이 완료됐으면 
+                    if (status === kakao.maps.services.Status.OK) {
+                        latitude = result[0].y;
+                        longitude = result[0].x;
+                        try {
+                        const docRef = await addDoc(collection(db, 'gachiBob'), {
+                            address: address,
+                            date: date,
+                            time: time,
+                            foodName: foodName,
+                            numOfPeople: numOfPeople,
+                            createdAt: new Date(),
+                            latitude: latitude,
+                            longitude: longitude,
+                            userEmail: userEmail // 등록한 사용자의 이메일 추가
+                        });
+                        alert('모임이 성공적으로 등록되었습니다!');
+                        document.getElementById('registerForm').reset();
+                        location.href = 'index.html';
+                    } catch (error) {
+                        console.error('Error adding document: ', error);
+                        alert('모임 등록에 실패했습니다. 다시 시도해주세요.');
+                    }
+                    } else {
+                        console.error('Error converting address to coordinates ', status);
+                        alert('좌표 검색에 실패했습니다. 다시 시도해주세요.');
+                    }
+                });    
+
             });
 
 
@@ -202,8 +213,12 @@
             }).catch((error) => {
                 console.error("Error getting documents: ", error);
             });
-        </script>
 
+
+            // 도로명주소 API승인키 : devU01TX0FVVEgyMDI0MDUxNjE3NDgxNjExNDc3MTQ=
+            // devU01TX0FVVEgyMDI0MDUxNjE4MDIwMTExNDc3MTU=
+            // https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI0MDUxNjE4MDIwMTExNDc3MTU=&currentPage=1&countPerPage=5&keyword=KEYWORD&resultType=json
+        </script>
             
 
 
