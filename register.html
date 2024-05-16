@@ -180,6 +180,7 @@
                 console.log('회원가입 성공', userCredential)
                 // Signed in 
                 const user = userCredential.user;
+                location.href = 'login.html';
             })
             .catch((error) => {
                 console.log('회원가입 실패', error)

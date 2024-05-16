@@ -1,139 +1,273 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>가치밥</title>
-    <link rel="stylesheet" href="indexStyle.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <style>
-        
-        #userNickname {
-            color:#000000;
-            font-size: 20px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 600;
-        }
-        #userNicknameBox {
-            display: inline-block;
-            background-color: #76DBD1; 
-            padding: 8px 12px; 
-            border-radius: 8px; 
-        }
-        #logoutButton {
-            background-color: #ffffff; 
-            color: #000000; 
-            border: none; 
-            border-radius: 8px; 
-            padding: 10px 20px; 
-            font-size: 16px; 
-            cursor: pointer; 
-            margin-left: 10px; 
-        }
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>가치밥</title>
+        <link rel="stylesheet" href="indexStyle.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <style>
+            
+            #userNickname {
+                color:#000000;
+                font-size: 20px;
+                font-family: 'Noto Sans KR', sans-serif;
+                font-weight: 600;
+            }
+            #userNicknameBox {
+                display: inline-block;
+                background-color: #76DBD1; 
+                padding: 8px 12px; 
+                border-radius: 8px; 
+            }
+            #logoutButton {
+                background-color: #ffffff; 
+                color: #000000; 
+                border: none; 
+                border-radius: 8px; 
+                padding: 10px 20px; 
+                font-size: 16px; 
+                cursor: pointer; 
+                margin-left: 10px; 
+            }
 
-        #logoutButton:hover {
-            background-color: #E74C3C; 
-        }
-        
-    </style>
-    <script src="bottomBar.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyCIdylWlCG8SiNzNy156t4tJrvxEJzB7wU",
-          authDomain: "gachibob-1891a.firebaseapp.com",
-          projectId: "gachibob-1891a",
-          storageBucket: "gachibob-1891a.appspot.com",
-          messagingSenderId: "291982428045",
-          appId: "1:291982428045:web:23432a7842bd76fa39dfc4",
-          measurementId: "G-76KZQE91XR"
-        };
-        
-        // Firebase 앱 초기화.
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth();
-        
-        // 로그인 여부를 확인하고, 사용자의 정보를 가져오는 함수
-        function checkAuthState() {
-            auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    // 사용자가 로그인되어 있는 경우
-                    document.getElementById('login').style.display = 'none'; // 로그인 버튼 숨기기
-                    document.getElementById('register').style.display = 'none'; // 회원가입 버튼 숨기기
-                    const userEmail = user.email;
-                    const userNickname = userEmail.substring(0, userEmail.indexOf('@'));
-                    console.log(userNickname);
-                    document.getElementById('userNickname').textContent = userNickname + ' 님'; // 사용자의 아이디 표시
-                    document.getElementById('logoutButton').style.display = 'inline-block'; // 로그아웃 버튼 보이기
-                } else {
-                    // 사용자가 로그인되어 있지 않은 경우
-                    document.getElementById('login').style.display = 'block'; // 로그인 버튼 표시
-                    document.getElementById('register').style.display = 'block'; // 회원가입 버튼 표시
-                    document.getElementById('userNickname').textContent = ''; // 사용자 닉네임 초기화
-                    document.getElementById('userNicknameBox').style.display = 'none';  // 사용자 닉네임 박스 숨김
-                    document.getElementById('logoutButton').style.display = 'none'; // 로그아웃 버튼 숨기기
+            #logoutButton:hover {
+                background-color: #E74C3C; 
+            }
+
+            body {
+                background-color: #a8ddd8; /* 배경색 설정 */
+                font-family: 'Noto Sans KR', sans-serif; /* 글꼴 변경 */
+            }
+
+            .container {
+                margin: 50px auto; /* 왼쪽에 여유 공간 설정 */
+                width: 80%; /* 컨테이너 너비 설정 */
+                max-width: 400px; /* 최대 너비 설정 */
+                background-color: #ffffff; /* 배경색 설정 */
+                padding: 20px; /* 안쪽 여백 설정 */
+                border-radius: 10px; /* 테두리 반경 설정 */
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+            }
+
+            .container h2 {
+                text-align: center;
+            }
+
+            .form-group {
+                margin-bottom: 20px; /* 입력 칸 사이 간격 설정 */
+            }
+
+            input[type="text"],
+            input[type="address"],
+            input[type="time"],
+            input[type="date"],
+            input[type="number"] {
+                width: calc(100% - 22px); /* 입력 칸 너비 설정 */
+                padding: 10px; /* 내부 여백 설정 */
+                border: 1px solid #ccc; /* 테두리 설정 */
+                border-radius: 5px; /* 테두리 반경 설정 */
+                margin-right: 10px; /* 오른쪽 여백 설정 */
+                font-family: 'Noto Sans KR', sans-serif;
+                font-size: 15px;
+            }
+            .feedback-valid {
+                color: green;
+            }
+
+            .feedback-invalid {
+                color: red;
+            }
+
+            button[type="signupButton"] {
+                width: 100%; /* 버튼 너비 설정 */
+                padding: 10px; /* 내부 여백 설정 */
+                border: none; /* 테두리 제거 */
+                border-radius: 5px; /* 테두리 반경 설정 */
+                background-color: #76DBD1; /* 배경색 설정 */
+                color: #fff; /* 글자색 설정 */
+                font-size: 16px; /* 글자 크기 설정 */
+                cursor: pointer; /* 커서 모양 변경 */
+            }
+
+            button[type="signupButton"]:hover {
+                background-color: #5cb8af; /* 호버 시 배경색 변경 */
+            }
+            
+        </style>
+        <script src="bottomBar.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+            import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+            import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+            
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+            apiKey: "AIzaSyCIdylWlCG8SiNzNy156t4tJrvxEJzB7wU",
+            authDomain: "gachibob-1891a.firebaseapp.com",
+            projectId: "gachibob-1891a",
+            storageBucket: "gachibob-1891a.appspot.com",
+            messagingSenderId: "291982428045",
+            appId: "1:291982428045:web:23432a7842bd76fa39dfc4",
+            measurementId: "G-76KZQE91XR"
+            };
+            
+            // Firebase 앱 초기화.
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth();     // 사용자 정보를 가져오기 위한 변수
+            const db = getFirestore(app);
+            
+            // 로그인 여부를 확인하고, 사용자의 정보를 가져오는 함수
+            function checkAuthState() {
+                auth.onAuthStateChanged(function(user) {
+                    if (user) {
+                        // 사용자가 로그인되어 있는 경우
+                        document.getElementById('login').style.display = 'none'; // 로그인 버튼 숨기기
+                        document.getElementById('register').style.display = 'none'; // 회원가입 버튼 숨기기
+                        const userEmail = user.address;
+                        const userNickname = userEmail.substring(0, userEmail.indexOf('@'));
+                        console.log(userNickname);
+                        document.getElementById('userNickname').textContent = userNickname + ' 님'; // 사용자의 아이디 표시
+                        document.getElementById('logoutButton').style.display = 'inline-block'; // 로그아웃 버튼 보이기
+                    } else {
+                        // 사용자가 로그인되어 있지 않은 경우
+                        document.getElementById('login').style.display = 'block'; // 로그인 버튼 표시
+                        document.getElementById('register').style.display = 'block'; // 회원가입 버튼 표시
+                        document.getElementById('userNickname').textContent = ''; // 사용자 닉네임 초기화
+                        document.getElementById('userNicknameBox').style.display = 'none';  // 사용자 닉네임 박스 숨김
+                        document.getElementById('logoutButton').style.display = 'none'; // 로그아웃 버튼 숨기기
+                    }
+                });
+            }
+
+            // 로딩시 로그인 여부 확인.
+            window.onload = function() {
+                checkAuthState();
+            };
+
+                // 로그아웃 버튼 클릭 시 로그아웃
+            document.getElementById('logoutButton').addEventListener('click', function() {
+            auth.signOut().then(() => {
+                // 로그아웃 성공 시 페이지 새로고침
+                window.location.reload();
+            }).catch((error) => {
+                // 로그아웃 실패 시 오류 메시지 출력
+                console.error('로그아웃 오류:', error);
+            });
+            });
+            // 여기까지 로그인 확인
+
+            
+            // Firestore에 데이터 등록
+            document.getElementById('registerForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const address = document.getElementById('address').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const foodName = document.getElementById('foodName').value;
+                const numOfPeople = document.getElementById('numOfPeople').value;
+
+                try {
+                    const docRef = await addDoc(collection(db, 'gachiBob'), {
+                        address: address,
+                        date: date,
+                        time: time,
+                        foodName: foodName,
+                        numOfPeople: numOfPeople,
+                        createdAt: new Date()
+                    });
+                    alert('모임이 성공적으로 등록되었습니다!');
+                    document.getElementById('registerForm').reset();
+                    location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error adding document: ', error);
+                    alert('모임 등록에 실패했습니다. 다시 시도해주세요.');
                 }
             });
-        }
-
-        // 로딩시 로그인 여부 확인.
-        window.onload = function() {
-            checkAuthState();
-        };
-
-            // 로그아웃 버튼 클릭 시 로그아웃
-        document.getElementById('logoutButton').addEventListener('click', function() {
-        auth.signOut().then(() => {
-            // 로그아웃 성공 시 페이지 새로고침
-            window.location.reload();
-        }).catch((error) => {
-            // 로그아웃 실패 시 오류 메시지 출력
-            console.error('로그아웃 오류:', error);
-        });
-        });
-    </script>
 
 
-</head>
+            // Firestore에서 데이터 가져오기
+            getDocs(collection(db, 'gachiBob')).then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.id, " => ", doc.data());
+                });
+            }).catch((error) => {
+                console.error("Error getting documents: ", error);
+            });
+        </script>
 
-<body>
+            
 
-<div class="top-bar">
-    <div class="left">
-        
-    </div>
-    <div class="middle">
-        <div class="search-container">
-            <button id="home" onclick="location.href='index.html'">가치밥</button>
+
+    </head>
+
+    <body>
+
+    <div class="top-bar">
+        <div class="left">
+            
+        </div>
+        <div class="middle">
+            <div class="search-container">
+                <button id="home" onclick="location.href='index.html'">가치밥</button>
+            </div>
+        </div>
+        <div class="right">
+            <button id="login" onclick="location.href='login.html'">로그인</button>
+            <button id="register" onclick="location.href='register.html'">회원가입</button>    
+            <span id="userNicknameBox">
+                <span id="userNickname"></span> <!-- 사용자 닉네임을 표시할 공간 -->
+            </span>
+            <button id="logoutButton">로그아웃</button>
         </div>
     </div>
-    <div class="right">
-        <button id="login" onclick="location.href='login.html'">로그인</button>
-        <button id="register" onclick="location.href='register.html'">회원가입</button>    
-        <span id="userNicknameBox">
-            <span id="userNickname"></span> <!-- 사용자 닉네임을 표시할 공간 -->
-        </span>
-        <button id="logoutButton">로그아웃</button>
+
+    <div class="bottom-bar">
+        <button id="introduce" onclick="location.href='index.html'">소개</button>
+        <button id="notification" onclick="location.href='notification.html'">공지사항</button>
+        <button id="guide" onclick="location.href='guide.html'">이용 안내</button>
+        <button id="mealRegister" onclick="location.href='mealRegister.html'">식사 모임 등록</button>
+        <button id="mealSearch" onclick="location.href='mealSearch.html'">식사 모임 검색</button>
     </div>
-</div>
-
-<div class="bottom-bar">
-    <button id="introduce" onclick="location.href='index.html'">소개</button>
-    <button id="notification" onclick="location.href='notification.html'">공지사항</button>
-    <button id="guide" onclick="location.href='guide.html'">이용 안내</button>
-    <button id="mealRegister" onclick="location.href='mealRegister.html'">식사 모임 등록</button>
-    <button id="mealSearch" onclick="location.href='mealSearch.html'">식사 모임 검색</button>
-</div>
 
 
 
-</body>
-</html>
+    <div class="container">
+        <h2>식사 모임 등록</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="address">모임 장소</label><br>
+                <input type="address" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="time">모임 날짜</label><br>
+                <input type="date" id="date" name="dateAndTime" required>
+            </div>        
+            <div class="form-group">
+                <label for="time">모임 시간</label><br>
+                <input type="time" id="time" name="dateAndTime" required>
+            </div>
+            <div class="form-group">
+                <label for="foodName">식사 메뉴</label><br>
+                <input type="text" id="foodName" name="foodName" required>
+            </div>
+            <div class="form-group">
+                <label for="numOfPeople">모집 인원</label><br>
+                <input type="number" id="numOfPeople" name="foodName" required>
+            </div>
+            <div class="form-group">
+                <button type="signupButton" id="signUpButton">등록하기</button>
+            </div>
+        </form>
+    </div>
+
+    </body>
+    </html>
